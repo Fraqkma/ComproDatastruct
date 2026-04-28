@@ -4,7 +4,7 @@
 
 #define MAX_NODES 100
 
-char NodeNames[MAX_NODES][10];
+char nodeNames[MAX_NODES][10];
 int nodeCount=0;
 
 int getNodeIndex(char* name){
@@ -14,7 +14,7 @@ int getNodeIndex(char* name){
         }
     }
     strcpy(nodeNames[nodeCount],name);
-    return NodeCount++;
+    return nodeCount++;
 }
 
 char *getNodeName(int index){
