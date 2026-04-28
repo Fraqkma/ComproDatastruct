@@ -10,7 +10,7 @@ void printPath(int parent[],int j){
         printf("%s ",getNodeName(j));
         return;
     }
-    printPath(parent,parent[j])
+    printPath(parent,parent[j]);
     printf("%s ",getNodeName(j));
 }
 

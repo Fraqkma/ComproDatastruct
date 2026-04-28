@@ -29,7 +29,7 @@ void addEdge(int src,int dest,int weight){
     graph->adjList[src]=newNode;
 
     struct Node* reverseNode=createNode(dest,weight);
-    reverseNode->next=graph->adjList[src];
+    reverseNode->next=graph->adjList[dest];
     graph->adjList[src]=reverseNode;
 }
 

@@ -21,7 +21,7 @@ char *getNodeName(int index){
     return nodeNames[index];
 }
 
-void loadFromfile(char* filename){
+void loadFromFile(char* filename){
     FILE* file=fopen(filename,"r");
 
     char src[10],dest[10];

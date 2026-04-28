@@ -1,4 +1,3 @@
-Node and edge
 n1,n2,135
 n1,n3,120
 n1,n5,180

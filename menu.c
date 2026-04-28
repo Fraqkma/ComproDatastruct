@@ -24,6 +24,10 @@ void interactMenu(int choice){
             scanf("%s",src);
             printf("Enter destination: ");
             scanf("%s",dest);
+            int u = getNodeIndex(src);
+            int v = getNodeIndex(dest);
+            dijkstra(u, v);
+            break;
         case 0:
             printf("Exiting");
             break;

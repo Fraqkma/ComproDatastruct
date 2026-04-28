@@ -1,7 +1,7 @@
 #ifndef GRAPH_H
 #define GRAPH_H
 
-struct Node{
+struct Node {
     int dest;
     int weight;
     struct Node* next;
@@ -10,12 +10,12 @@ struct Node{
 struct Graph {
     int V;
     struct Node** adjList;
-}
+};
 
-extern struct Graph* graph; //make struct to global struct that can use in any files
+extern struct Graph* graph;
 
 void initGraph(int vertices);
-void addEdge(int src,int dest,int weight);
-void printfGraph();
+void addEdge(int src, int dest, int weight);
+void printGraph();
 
-#endif //end all if condition if it has
+#endif

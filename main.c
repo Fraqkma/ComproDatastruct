@@ -3,6 +3,7 @@
 #include "graph.h"
 #include "utils.h"
 
+
 int main() {
     initGraph(100);
     loadFromFile("data/kmuttmap.txt");
