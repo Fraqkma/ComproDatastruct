@@ -5,6 +5,7 @@
 
 int main() {
     initGraph(100);
+    loadFromFile("data/kmuttmap.txt")
 
     int choice;
     do{
