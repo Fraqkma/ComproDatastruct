@@ -2,6 +2,9 @@
 #include "menu.h"
 #include "graph.h"
 #include "dijkstra.h"
+#include "alternative.h"
+#include "block.h"
+#include "mapping.h"
 #include "utils.h"
 
 void showMenu(){
