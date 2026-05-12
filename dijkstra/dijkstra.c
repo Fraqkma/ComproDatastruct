@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "graph.h"
 #include "utils.h"
+#include "block.h"
 #define INF 1000000000 
 
 extern struct Graph* graph;
@@ -19,6 +20,16 @@ void dijkstra(int src,int dest){
     int visited[100]={0};
     int parent[100];
 
+    if (isNodeBlocked(src)) {
+        printf("Start node is blocked. Cannot find path.\n");
+        return;
+    }
+
+    if (isNodeBlocked(dest)) {
+        printf("Destination node is blocked. Cannot find path.\n");
+        return;
+    }
+
     for(int i=0;i<graph->V;i++){
         dist[i]=INF;
         parent[i]=-1;
@@ -28,7 +39,7 @@ void dijkstra(int src,int dest){
     for(int i=0;i<graph->V -1;i++){
         int u=-1,min=INF;
         for(int j=0;j<graph->V;j++){
-            if(!visited[j]&&dist[j]<min){
+            if(!visited[j]&& !isNodeBlocked(j) && dist[j]<min){
                 min=dist[j];
                 u=j;
             }
@@ -42,6 +53,12 @@ void dijkstra(int src,int dest){
         while(temp){
             int v=temp->dest;
             int weight=temp->weight;
+
+            if (isNodeBlocked(v)) {
+                temp = temp->next;
+                continue;
+            }
+
 
             if(!visited[v]&& dist[u]+weight<dist[v]){
                 dist[v]=dist[u]+weight;
