@@ -82,6 +82,10 @@ void interactMenu(int choice){
             node = findNodeByName(name);
 
             if (node == -1) {
+                node = findAlternativeNode(name);
+            }
+
+            if (node == -1) {
                 printf("Location not found.\n");
                 break;
             }
@@ -101,6 +105,10 @@ void interactMenu(int choice){
 
         case 0:
             printf("Exiting");
+            break;
+
+        default:
+            printf("Invalid choice.\n");
             break;
     }
 }

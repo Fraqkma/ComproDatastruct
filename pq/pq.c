@@ -13,7 +13,7 @@ struct PriorityQueue *createPQ(int capacity){
 
     pq->size=0;
     pq->capacity=capacity;
-    pq->nodes=malloc(capacity*sizeof(struct PQNode));
+    pq->nodes=malloc((size_t)capacity*sizeof(struct PQNode));
     return pq;
 }
 
@@ -24,6 +24,11 @@ void heapUp(struct PriorityQueue *pq,int idx){
     }
 }
 void push(struct PriorityQueue *pq,int vertex ,int dist){
+    if (pq->size >= pq->capacity) {
+        printf("Priority queue is full.\n");
+        return;
+    }
+
     pq->nodes[pq->size].vertex=vertex;
     pq->nodes[pq->size].dist=dist;
 
@@ -49,6 +54,11 @@ void heapDown(struct PriorityQueue *pq,int idx){
     }
 }
 struct PQNode popMin(struct PriorityQueue *pq){
+    if (isEmpty(pq)) {
+        struct PQNode emptyNode = {-1, -1};
+        return emptyNode;
+    }
+
     struct PQNode root=pq->nodes[0];
 
     pq->nodes[0]=pq->nodes[pq->size-1];

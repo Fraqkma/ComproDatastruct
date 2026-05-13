@@ -2,7 +2,7 @@
 #include "block.h"
 #include "utils.h"
 
-static int blockedNodes[MAX_BLOCKED_NODES];
+int blockedNodes[MAX_BLOCKED_NODES];
 
 void initBlockedNodes(void) {
     for (int i = 0; i < MAX_BLOCKED_NODES; i++) {

@@ -9,7 +9,7 @@ struct AlternativeName {
     int used;
 };
 
-static struct AlternativeName alternativeTable[ALTERNATIVE_TABLE_SIZE];
+struct AlternativeName alternativeTable[ALTERNATIVE_TABLE_SIZE];
 
 int hashName(char name[]) {
     int hash = 0;

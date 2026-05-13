@@ -1,7 +1,9 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "graph.h"
 #include "utils.h"
 #include "block.h"
+#include "pq.h"
 #define INF 1000000000 
 
 extern struct Graph* graph;
@@ -19,6 +21,8 @@ void dijkstra(int src,int dest){
     int dist[100];
     int visited[100]={0};
     int parent[100];
+    int pqCapacity;
+    struct PriorityQueue* pq;
 
     if (isNodeBlocked(src)) {
         printf("Start node is blocked. Cannot find path.\n");
@@ -36,18 +40,31 @@ void dijkstra(int src,int dest){
     }
     dist[src]=0;
 
-    for(int i=0;i<graph->V -1;i++){
-        int u=-1,min=INF;
-        for(int j=0;j<graph->V;j++){
-            if(!visited[j]&& !isNodeBlocked(j) && dist[j]<min){
-                min=dist[j];
-                u=j;
-            }
-        }
-        if(u==-1){
+    pqCapacity = graph->V * graph->V;
+    pq = createPQ(pqCapacity);
+    push(pq, src, 0);
+
+    while(!isEmpty(pq)){
+        struct PQNode current = popMin(pq);
+        int u = current.vertex;
+
+        if(u == -1){
             break;
         }
+
+        if(visited[u]){
+            continue;
+        }
+
+        if(isNodeBlocked(u)){
+            continue;
+        }
+
         visited[u]=1;
+
+        if(u == dest){
+            break;
+        }
 
         struct Node* temp=graph->adjList[u];
         while(temp){
@@ -63,10 +80,20 @@ void dijkstra(int src,int dest){
             if(!visited[v]&& dist[u]+weight<dist[v]){
                 dist[v]=dist[u]+weight;
                 parent[v]=u;
+                push(pq, v, dist[v]);
             }
             temp=temp->next;
         }
     }
+
+    free(pq->nodes);
+    free(pq);
+
+    if (dist[dest] == INF) {
+        printf("No available path found.\n");
+        return;
+    }
+
     printf("Shortest distance: %d\n",dist[dest]);
     printf("Path: ");
     printPath(parent,dest);

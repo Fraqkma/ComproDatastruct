@@ -24,10 +24,15 @@ char *getNodeName(int index){
 void loadFromFile(char* filename){
     FILE* file=fopen(filename,"r");
 
+    if(file==NULL){
+        printf("Cannot open map file: %s\n",filename);
+        return;
+    }
+
     char src[10],dest[10];
     int weight;
 
-    while(fscanf(file,"%[^,],%[^,],%d\n",src,dest,&weight)!=EOF){ //EOF = End of file so basically just loop untils not found this one optimized by chatGPT
+    while(fscanf(file," %9[^,],%9[^,],%d",src,dest,&weight)==3){
         int u=getNodeIndex(src);
         int v=getNodeIndex(dest);
         addEdge(u,v,weight);       

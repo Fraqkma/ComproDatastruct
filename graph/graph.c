@@ -16,7 +16,7 @@ struct Node* createNode(int dest,int weight){
 void initGraph(int vertices){
     graph = malloc(sizeof(struct Graph));
     graph->V=vertices;
-    graph->adjList=malloc(vertices *sizeof(struct Node*));
+    graph->adjList=malloc((size_t)vertices *sizeof(struct Node*));
 
     for(int i=0;i<vertices;i++){
         graph->adjList[i]=NULL;
@@ -28,9 +28,9 @@ void addEdge(int src,int dest,int weight){
     newNode->next=graph->adjList[src];
     graph->adjList[src]=newNode;
 
-    struct Node* reverseNode=createNode(dest,weight);
+    struct Node* reverseNode=createNode(src,weight);
     reverseNode->next=graph->adjList[dest];
-    graph->adjList[src]=reverseNode;
+    graph->adjList[dest]=reverseNode;
 }
 
 void printGraph(){
