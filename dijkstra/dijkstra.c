@@ -8,6 +8,7 @@
 
 extern struct Graph* graph;
 
+// Prints the final route by walking backward through the parent array.
 void printPath(int parent[],int j){
     if(parent[j]==-1){
         printf("%s ",getNodeName(j));
@@ -17,6 +18,7 @@ void printPath(int parent[],int j){
     printf("%s ",getNodeName(j));
 }
 
+// Finds the shortest available path while skipping blocked locations.
 void dijkstra(int src,int dest){
     int dist[100];
     int visited[100]={0};

@@ -4,6 +4,7 @@
 #include "graph.h"
 #include "utils.h"
 
+// Checks if a node number points to a real loaded location.
 int isValidNode(int node) {
     if (graph == NULL) {
         return 0;
@@ -20,6 +21,7 @@ int isValidNode(int node) {
     return 1;
 }
 
+// Finds the node index that matches a location name.
 int findNodeByName(char name[]) {
     if (graph == NULL) {
         return -1;
@@ -34,6 +36,7 @@ int findNodeByName(char name[]) {
     return -1;
 }
 
+// Prints one location in a simple index and name format.
 void printLocation(int node) {
     if (!isValidNode(node)) {
         printf("Invalid location.\n");
@@ -43,6 +46,7 @@ void printLocation(int node) {
     printf("%d | %s\n", node, getNodeName(node));
 }
 
+// Shows all locations that were loaded from the map file.
 void showAllLocations(void) {
     int found = 0;
 

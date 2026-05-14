@@ -5,7 +5,7 @@
 #include "block.h"
 #include "dijkstra/alternative.h"
 
-
+// Starts the map system, loads saved labels, then keeps the menu running.
 int main() {
 
     initGraph(100);
@@ -14,12 +14,7 @@ int main() {
     loadFromFile("data/kmuttmap.txt");
 
     initAlternativeNames();
-
-    addAlternativeName("MainGate", "n1");
-    addAlternativeName("Library", "n10");
-    addAlternativeName("Canteen", "n20");
-    addAlternativeName("BuildingA", "n5");
-    addAlternativeName("Parking", "n44");
+    loadAlternativeNames("data/label.txt");
 
     int choice;
     do{

@@ -4,12 +4,14 @@
 
 int blockedNodes[MAX_BLOCKED_NODES];
 
+// Resets every location so nothing is blocked at startup.
 void initBlockedNodes(void) {
     for (int i = 0; i < MAX_BLOCKED_NODES; i++) {
         blockedNodes[i] = 0;
     }
 }
 
+// Marks one location as blocked so routes cannot pass through it.
 void blockNode(int node) {
     if (node < 0 || node >= MAX_BLOCKED_NODES) {
         printf("Invalid node.\n");
@@ -19,6 +21,7 @@ void blockNode(int node) {
     blockedNodes[node] = 1;
 }
 
+// Opens one blocked location again.
 void unblockNode(int node) {
     if (node < 0 || node >= MAX_BLOCKED_NODES) {
         printf("Invalid node.\n");
@@ -28,6 +31,7 @@ void unblockNode(int node) {
     blockedNodes[node] = 0;
 }
 
+// Checks if a location is blocked before using it in a route.
 int isNodeBlocked(int node) {
     if (node < 0 || node >= MAX_BLOCKED_NODES) {
         return 1;
@@ -36,12 +40,14 @@ int isNodeBlocked(int node) {
     return blockedNodes[node];
 }
 
+// Clears all blocked locations in one go.
 void clearBlockedNodes(void) {
     for (int i = 0; i < MAX_BLOCKED_NODES; i++) {
         blockedNodes[i] = 0;
     }
 }
 
+// Shows every location that is currently blocked.
 void printBlockedNodes(void) {
     int found = 0;
 

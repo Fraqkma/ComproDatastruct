@@ -7,6 +7,7 @@
 char nodeNames[MAX_NODES][10];
 int nodeCount=0;
 
+// Finds an existing node name, or creates a new index for a new name.
 int getNodeIndex(char* name){
     for(int i=0;i<nodeCount;i++){
         if(strcmp(nodeNames[i],name)==0){
@@ -17,10 +18,12 @@ int getNodeIndex(char* name){
     return nodeCount++;
 }
 
+// Gets the saved name for a node index.
 char *getNodeName(int index){
     return nodeNames[index];
 }
 
+// Reads the map text file and turns each line into graph edges.
 void loadFromFile(char* filename){
     FILE* file=fopen(filename,"r");
 

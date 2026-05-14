@@ -1,0 +1,5 @@
+MainGate n1
+Library n10
+Canteen n20
+BuildingA n5
+Parking n44

@@ -2,12 +2,14 @@
 #include <stdlib.h>
 #include "pq.h"
 
+// Swaps two heap nodes when the heap needs reordering.
 void swap(struct PQNode *a,struct PQNode *b){
     struct PQNode temp= *a;
     *a=*b;
     *b=temp;
 }
 
+// Creates an empty priority queue with a fixed capacity.
 struct PriorityQueue *createPQ(int capacity){
     struct PriorityQueue* pq=malloc(sizeof(struct PriorityQueue));
 
@@ -17,12 +19,15 @@ struct PriorityQueue *createPQ(int capacity){
     return pq;
 }
 
+// Moves a new item upward until the min-heap order is correct.
 void heapUp(struct PriorityQueue *pq,int idx){
     while (idx && pq->nodes[(idx - 1)/2].dist > pq->nodes[idx].dist) {
         swap(&pq->nodes[(idx - 1)/2], &pq->nodes[idx]);
         idx = (idx - 1)/2;
     }
 }
+
+// Adds a vertex and distance into the min-heap.
 void push(struct PriorityQueue *pq,int vertex ,int dist){
     if (pq->size >= pq->capacity) {
         printf("Priority queue is full.\n");
@@ -36,6 +41,8 @@ void push(struct PriorityQueue *pq,int vertex ,int dist){
 
     pq->size++;
 }
+
+// Moves the root downward until the min-heap order is correct again.
 void heapDown(struct PriorityQueue *pq,int idx){
     int smallest=idx;
 
@@ -53,6 +60,8 @@ void heapDown(struct PriorityQueue *pq,int idx){
         heapDown(pq,smallest);
     }
 }
+
+// Removes and returns the vertex with the smallest distance.
 struct PQNode popMin(struct PriorityQueue *pq){
     if (isEmpty(pq)) {
         struct PQNode emptyNode = {-1, -1};
@@ -68,6 +77,8 @@ struct PQNode popMin(struct PriorityQueue *pq){
 
     return root;
 }
+
+// Checks whether the priority queue has no items left.
 int isEmpty(struct PriorityQueue *pq){
     return pq->size==0;
 }

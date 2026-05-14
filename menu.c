@@ -7,6 +7,7 @@
 #include "mapping.h"
 #include "utils.h"
 
+// Shows the main commands the user can choose from.
 void showMenu(){
     printf("\n---Navigating System---\n");
     printf("0 | Exit\n");
@@ -17,9 +18,77 @@ void showMenu(){
     printf("5 | Unblock Location\n");
     printf("6 | Show Blocked Locations\n");
     printf("7 | Clear Blocked Locations\n");
+    printf("8 | Manage Location Labels\n");
     printf("Choose: ");
 }
 
+// Handles adding, deleting, and viewing custom location labels.
+void manageLabels(void) {
+    int choice;
+    char alias[ALTERNATIVE_NAME_SIZE];
+    char nodeName[10];
+
+    do {
+        printf("\n--- Location Label Manager ---\n");
+        printf("0 | Back\n");
+        printf("1 | Add or Update Label\n");
+        printf("2 | Delete Label\n");
+        printf("3 | Show Labels\n");
+        printf("Choose: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                printf("Enter new label: ");
+                scanf("%29s", alias);
+                printf("Enter real location name: ");
+                scanf("%9s", nodeName);
+
+                if (!addAlternativeName(alias, nodeName)) {
+                    printf("Cannot add label. Location may not exist or label table is full.\n");
+                    break;
+                }
+
+                if (!saveAlternativeNames("data/label.txt")) {
+                    printf("Label added, but could not save to file.\n");
+                    break;
+                }
+
+                printf("Label saved: %s -> %s\n", alias, nodeName);
+                break;
+
+            case 2:
+                printf("Enter label to delete: ");
+                scanf("%29s", alias);
+
+                if (!removeAlternativeName(alias)) {
+                    printf("Label not found.\n");
+                    break;
+                }
+
+                if (!saveAlternativeNames("data/label.txt")) {
+                    printf("Label deleted, but could not save to file.\n");
+                    break;
+                }
+
+                printf("Label deleted: %s\n", alias);
+                break;
+
+            case 3:
+                printAlternativeNames();
+                break;
+
+            case 0:
+                break;
+
+            default:
+                printf("Invalid choice.\n");
+                break;
+        }
+    } while (choice != 0);
+}
+
+// Runs the command selected from the main menu.
 void interactMenu(int choice){
     char src[10],dest[10],name[10];
     int node;
@@ -30,9 +99,9 @@ void interactMenu(int choice){
             break;
         case 2:
             printf("Enter start position: ");
-            scanf("%s",src);
+            scanf("%9s",src);
             printf("Enter destination: ");
-            scanf("%s",dest);
+            scanf("%9s",dest);
             int u = findNodeByName(src);
             int v = findNodeByName(dest);
 
@@ -58,7 +127,7 @@ void interactMenu(int choice){
 
         case 4:
             printf("Enter location to block: ");
-            scanf("%s", name);
+            scanf("%9s", name);
 
             node = findNodeByName(name);
 
@@ -77,7 +146,7 @@ void interactMenu(int choice){
 
         case 5:
             printf("Enter location to unblock: ");
-            scanf("%s", name);
+            scanf("%9s", name);
 
             node = findNodeByName(name);
 
@@ -101,6 +170,10 @@ void interactMenu(int choice){
         case 7:
             clearBlockedNodes();
             printf("All blocked locations cleared.\n");
+            break;
+
+        case 8:
+            manageLabels();
             break;
 
         case 0:
